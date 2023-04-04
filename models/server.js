@@ -19,12 +19,15 @@ class Server {
         // CORS
         this.app.use( cors() );
 
+        // Parseo y lectura del body
+        this.app.use( express.json() );
+
         // Directorio Publico
-        this.app.use( express.static('public'));
+        this.app.use( express.static('public') );
     }
 
     routes() {
-       this.app.use(this.usuariosPath, require('../routes/user.routes'));
+       this.app.use( this.usuariosPath, require('../routes/user.routes') );
     }
 
     listen() {
