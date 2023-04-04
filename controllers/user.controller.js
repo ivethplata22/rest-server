@@ -1,12 +1,17 @@
-const { response } = require('express');
+const { response, request } = require('express');
 
-const usuariosGet = (req, res = response) => {
+const usuariosGet = (req = request, res = response) => {
+    const { q, nombre, apikey } = req.query;
+
     res.json({
-        msg: 'Get Api - Controlador'
+        msg: 'Get Api - Controlador',
+        q,
+        nombre,
+        apikey
     });
 }
 
-const usuariosPost = (req, res = response) => {
+const usuariosPost = (req = request, res = response) => {
     const { nombre, edad } = req.body;
 
     res.status(201).json({
@@ -16,19 +21,19 @@ const usuariosPost = (req, res = response) => {
     });
 }
 
-const usuariosDelete = (req, res = response) => {
+const usuariosDelete = (req = request, res = response) => {
     res.status(100).json({
         msg: 'Delete Api - Controlador'
     });
 }
 
-const usuariosPatch = (req, res = response) => {
+const usuariosPatch = (req = request, res = response) => {
     res.status(500).json({
         msg: 'Patch Api - Controlador'
     });
 }
 
-const usuariosPut = (req, res = response) => {
+const usuariosPut = (req = request, res = response) => {
     const id = req.params.id;
 
     res.status(400).json({
