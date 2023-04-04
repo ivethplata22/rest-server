@@ -1,7 +1,7 @@
 {
   "name": "rest-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Introduccion a REST Server",
   "main": "index.js",
   "scripts": {
     "start": "node app.js"
