@@ -29,8 +29,11 @@ const usuariosPatch = (req, res = response) => {
 }
 
 const usuariosPut = (req, res = response) => {
+    const id = req.params.id;
+
     res.status(400).json({
-        msg: 'Put Api'
+        msg: 'Put Api',
+        id
     });
 }
 
