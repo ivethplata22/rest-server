@@ -13,5 +13,5 @@ npm install
 
 Iniciar la aplicación
 ```
-nodemon app
+npm start
 ```
