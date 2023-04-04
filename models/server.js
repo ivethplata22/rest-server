@@ -24,25 +24,25 @@ class Server {
         });
 
         this.app.put('/api', (req, res) => {
-            res.json({
+            res.status(400).json({
                 msg: 'Put Api'
             });
         });
 
         this.app.post('/api', (req, res) => {
-            res.json({
+            res.status(201).json({
                 msg: 'Post Api'
             });
         });
 
         this.app.delete('/api', (req, res) => {
-            res.json({
+            res.status(100).json({
                 msg: 'Delete Api'
             });
         });
 
         this.app.patch('/api', (req, res) => {
-            res.json({
+            res.status(500).json({
                 msg: 'Patch Api'
             });
         });
