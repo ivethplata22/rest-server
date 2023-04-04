@@ -1,13 +1,3 @@
-// {
-//     nombre: "asd",
-//     correo: "adsd",
-//     password: "asdasd",
-//     img: "asdasd",
-//     rol: "sdad",
-//     estado: false,
-//     google: false
-// }
-
 const { Schema, model } = require('mongoose');
 
 const UsuarioSchema = Schema({
