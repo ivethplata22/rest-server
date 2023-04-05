@@ -1,6 +1,7 @@
 const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
 const Usuario = require('../models/usuario');
+const { validationResult } = require('express-validator');
 
 const usuariosGet = (req = request, res = response) => {
     const { q, nombre, apikey } = req.query;
@@ -15,23 +16,34 @@ const usuariosGet = (req = request, res = response) => {
 
 // Crear usuario
 const usuariosPost = async (req = request, res = response) => {
+    // Validar formato del correo
+    const errors = validationResult(req);
+    if(!errors.isEmpty())
+        res.status(400).json(errors);
+
+    // Extraer datos del request
     const { nombre, correo, password, rol } = req.body;
     // Modelo de usuario
     const usuario = new Usuario({nombre, correo, password, rol});
 
     // Verificar si correo existe
+    const existeEmail = await Usuario.findOne({ correo });
+    if(existeEmail)
+        res.status(400).json({msg: 'El correo ya esta registrado'});
+    
+    if(!existeEmail) {
+        // Encriptar la contraseña
+        const salt = bcryptjs.genSaltSync();
+        usuario.password = bcryptjs.hashSync( password, salt );
 
-    // Encriptar la contraseña
-    const salt = bcryptjs.genSaltSync();
-    usuario.password = bcryptjs.hashSync( password, salt );
+        // Guardar en BD
+        await usuario.save();
 
-    // Guardar en BD
-    await usuario.save();
-
-    res.status(201).json({
-        msg: 'Usuario Creado Con Exito',
-        usuario
-    });
+        res.status(201).json({
+            msg: 'Usuario Creado Con Exito',
+            usuario
+        });
+    }
 }
 
 const usuariosDelete = (req = request, res = response) => {
