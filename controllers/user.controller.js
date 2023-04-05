@@ -17,13 +17,9 @@ const usuariosGet = (req = request, res = response) => {
 const usuariosPost = async (req = request, res = response) => {
     // Extraer datos del request
     const { nombre, correo, password, rol } = req.body;
+
     // Modelo de usuario
     const usuario = new Usuario({nombre, correo, password, rol});
-
-    // Verificar si correo existe
-    const existeEmail = await Usuario.findOne({ correo });
-    if(existeEmail)
-        return res.status(400).json({msg: 'El correo ya esta registrado'});
 
     // Encriptar la contraseña
     const salt = bcryptjs.genSaltSync();
@@ -32,6 +28,7 @@ const usuariosPost = async (req = request, res = response) => {
     // Guardar en BD
     await usuario.save();
 
+    // Respuesta
     return res.status(201).json({
         msg: 'Usuario Creado Con Exito',
         usuario
