@@ -47,12 +47,24 @@ const usuariosPatch = (req = request, res = response) => {
     });
 }
 
-const usuariosPut = (req = request, res = response) => {
-    const id = req.params.id;
+const usuariosPut = async (req = request, res = response) => {
+    const { id } = req.params;
+    const { password, google, correo, ...resto } = req.body;
 
-    res.status(400).json({
-        msg: 'Put Api',
-        id
+    // Verifica si va cambiar password
+    if(password) {
+        // Encriptar contraseña
+        const salt = bcryptjs.genSaltSync();
+        resto.password = bcryptjs.hashSync( password, salt );
+    }
+
+    // Buscar Coincidencia en BD
+    const usuario = await Usuario.findByIdAndUpdate(id, resto, { new: true });
+
+    // Respuesta
+    return res.status(200).json({
+        msg: 'Usuario Actualizado Correctamente',
+        usuario
     });
 }
 
