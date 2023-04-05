@@ -34,8 +34,8 @@ const UsuarioSchema = Schema({
 
 // Remover campos para la respuesta
 UsuarioSchema.methods.toJSON = function() {
-    const {__v, password, ...usuario} = this.toObject();
-    return usuario;
-}
+    const { __v, password, ...usuario } = this.toObject();
+    return JSON.parse(JSON.stringify(usuario));
+};
 
 module.exports = model('Usuario', UsuarioSchema);
