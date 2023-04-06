@@ -34,7 +34,9 @@ http://localhost:PORT/api/usuarios/ID
 ```
 
 Endpoint para Obtener los Usuarios - Paginado
+
 Limite = La cantidad de registros que quieres traer
+
 Desde = Desde que registro quieres traer
 ```
 http://localhost:PORT/api/usuarios?limite=7&desde=4
