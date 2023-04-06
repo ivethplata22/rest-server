@@ -29,10 +29,10 @@ router.post('/', [
         validarCampos
 ],usuariosPost);
 router.delete('/:id', [
+        validarJWT,
         check('id', 'No es un ID valido').isMongoId(),
         check('id').custom( existeUsuarioPorID ),
         validarCampos,
-        validarJWT,
 ], usuariosDelete);
 router.patch('/', usuariosPatch);
 
