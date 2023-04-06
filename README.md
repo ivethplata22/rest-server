@@ -3,6 +3,8 @@ Introducción REST Server con manejo de Roles
 
 Base de datos MongoDB
 
+Implementación de JWT y autenticación por roles
+
 Configurar archivo .env
 ```
 Ejemplo en example.env
