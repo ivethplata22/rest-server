@@ -5,6 +5,8 @@ Base de datos MongoDB
 
 Implementación de JWT y autenticación por roles
 
+Implementacion de inicio de sesión por Google
+
 Configurar archivo .env
 ```
 Ejemplo en example.env
@@ -20,26 +22,7 @@ Iniciar la aplicación
 npm start
 ```
 
-Endpoint para Crear Usuario
+Documentación
 ```
-http://localhost:PORT/api/usuarios
-```
-
-Endpoint para Actualizar Usuario
-```
-http://localhost:PORT/api/usuarios/ID
-```
-
-Endpoint para Eliminado Logico de Usuario
-```
-http://localhost:PORT/api/usuarios/ID
-```
-
-Endpoint para Obtener los Usuarios - Paginado
-
-Limite = La cantidad de registros que quieres traer
-
-Desde = Desde que registro quieres traer
-```
-http://localhost:PORT/api/usuarios?limite=7&desde=4
+https://documenter.getpostman.com/view/17579273/2s93RZMVap
 ```
