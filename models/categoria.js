@@ -18,4 +18,11 @@ const CategoriaSchema = Schema({
     },
 });
 
+// Remover campos para la respuesta
+CategoriaSchema.methods.toJSON = function() {
+    const { __v, estado, _id, ...data } = this.toObject();
+    data.cid = _id;
+    return JSON.parse(JSON.stringify(data));
+};
+
 module.exports = model('Categoria', CategoriaSchema);
