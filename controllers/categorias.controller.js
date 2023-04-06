@@ -5,23 +5,41 @@ const obtenerCategorias = async (req = request, res = response) => {
     const { limite = 5, desde = 0 } = req.query;
     const query = { estado: true };
 
-    // Ahorra tiempo de ejecucion
-    const [ total, categorias ] = await Promise.all([
-        Categoria.countDocuments(query),
-        Categoria.find(query)
-            .skip( Number( desde ) )
-            .populate('usuario', 'nombre')
-            .limit( Number( limite ) )
-    ]);
+    try {
+        // Ahorra tiempo de ejecucion
+        const [ total, categorias ] = await Promise.all([
+            Categoria.countDocuments(query),
+            Categoria.find(query)
+                .skip( Number( desde ) )
+                .populate('usuario', 'nombre')
+                .limit( Number( limite ) )
+        ]);
 
-    return res.status(200).json({
-        total,
-        categorias
-    });
+        return res.status(200).json({
+            total,
+            categorias
+        });
+    } catch (error) {
+        return res.status(500).json({
+            msg: 'Erorr de Sistema | Obetenr Categorias'
+        });
+    }
 }
 
 const obtenerCategoria = async (req = request, res = response) => {
+    const { id } = req.params;
 
+    try {
+        const categoria = await Categoria.findById( id ).populate('usuario', 'nombre');
+
+        return res.status(200).json({
+            categoria
+        });
+    } catch (error) {
+        return res.status(500).json({
+            msg: 'Error de Sistema | Obtener Categoria'
+        });
+    }
 }
 
 const crearCategoria = async (req = request, res = response) => {
