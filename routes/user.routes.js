@@ -8,9 +8,11 @@ const { usuariosGet,
         usuariosPut } = require('../controllers/user.controller');
 
 // Middleware
-const { validarCampos } = require('../middlewares/validar-campos');
-const { validarJWT } = require('../middlewares/validar-jwt');
-const { tieneRole } = require('../middlewares/validar-roles');
+const {
+        validarCampos,
+        validarJWT, 
+        tieneRole
+} = require('../middlewares');
 
 const router = Router();
 
