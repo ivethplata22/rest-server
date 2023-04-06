@@ -48,6 +48,7 @@ const usuariosPost = async (req = request, res = response) => {
 
 const usuariosDelete = async (req = request, res = response) => {
     const { id } = req.params;
+    const uid = req.uid;
 
     // De esta forma perdemos la integridad referencial
     // const usuario = await Usuario.findByIdAndDelete(id);
@@ -57,7 +58,8 @@ const usuariosDelete = async (req = request, res = response) => {
 
     return res.status(200).json({
         msg: 'Usuario borrado correctamente',
-        usuario
+        usuario,
+        uid
     });
 }
 
