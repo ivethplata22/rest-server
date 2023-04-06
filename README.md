@@ -1,5 +1,6 @@
 # Notas de la aplicación:
 Introducción REST Server con manejo de Roles
+
 Base de datos MongoDB
 
 Configurar archivo .env
