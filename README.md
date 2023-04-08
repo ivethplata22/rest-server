@@ -7,6 +7,8 @@ Implementación de JWT y autenticación por roles
 
 Implementacion de inicio de sesión por Google
 
+Implementación de Categorias y Productos con peticiones CRUD
+
 Configurar archivo .env
 ```
 Ejemplo en example.env
