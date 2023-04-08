@@ -1,13 +1,13 @@
 # Notas de la aplicación:
-Introducción REST Server con manejo de Roles
-
 Base de datos MongoDB
 
-Implementación de JWT y autenticación por roles
+Introducción REST Server con manejo de Roles - v2
 
-Implementacion de inicio de sesión por Google
+Implementación de JWT y autenticación por roles -v3
 
-Implementación de Categorias y Productos con peticiones CRUD
+Implementacion de inicio de sesión por Google -v4
+
+Implementación de Categorias y Productos con peticiones CRUD -v5
 
 Configurar archivo .env
 ```
