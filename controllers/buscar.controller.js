@@ -40,6 +40,49 @@ const buscarUsuarios = async ( termino = '', res = response ) => {
     });
 }
 
+const buscarCategorias = async ( termino = '', res = response ) => {
+    const esMongoID = ObjectId.isValid( termino );
+
+    if( esMongoID ) {
+        const categoria = await Categoria.findById( termino )
+            .populate('usuario', 'nombre');
+        return res.status(200).json({
+            results: ( categoria ) ? [ categoria ] : []
+        });
+    }
+
+    const regex = new RegExp( termino, 'i' );
+
+    const categoria = await Categoria.find({nombre: regex, estado: true})
+        .populate('usuario', 'nombre');
+
+    return res.status(200).json({
+        results: ( categoria ) ? [ categoria ] : []
+    });
+}
+
+const buscarProductos = async ( termino = '', res = response ) => {
+    const esMongoID = ObjectId.isValid( termino );
+
+    if( esMongoID ) {
+        const producto = await Producto.findById( termino )
+            .populate('categoria', 'nombre')
+            .populate('usuario', 'nombre');
+        return res.status(200).json({
+            results: ( producto ) ? [ producto ] : []
+        });
+    }
+
+    const regex = new RegExp( termino, 'i' );
+
+    const producto = await Producto.find({nombre: regex, estado: true})
+        .populate('categoria', 'nombre')
+        .populate('usuario', 'nombre');
+    return res.status(200).json({
+        results: ( producto ) ? [ producto ] : []
+    });
+}
+
 const buscar = ( req = request, res = response ) => {
 
     const { coleccion, termino } = req.params;
@@ -55,10 +98,10 @@ const buscar = ( req = request, res = response ) => {
             buscarUsuarios( termino, res );
         break;
         case 'categorias':
-            
+            buscarCategorias( termino, res );
         break;
         case 'productos':
-            
+            buscarProductos( termino, res );
         break;
         default:
             res.status(500).json({
