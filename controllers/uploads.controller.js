@@ -8,7 +8,7 @@ const cargarArchivo = async ( req = request, res = response ) => {
 
     try {
         // Subir otro tipo de archivos
-        const nombre = await subirArchivo( req.files, ['txt', 'md'], 'textos' );
+        const nombre = await subirArchivo( req.files, undefined, 'imgs' );
         return res.status(200).json({ nombre });
     } catch (error) {
         return res.status(500).json({
