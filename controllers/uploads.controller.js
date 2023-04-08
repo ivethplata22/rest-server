@@ -7,19 +7,33 @@ const cargarArchivo = ( req = request, res = response ) => {
         return res.status(400).json({msg: 'No hay archivos que subir'});
     }
 
-    // Establecer la direccion del archivo
+    // Extraer la extension
     const { archivo } = req.files;
-    const uploadPath = path.join( __dirname, '../uploads/', archivo.name );
+    const nombreCortado = archivo.name.split('.');
+    const extension = nombreCortado[ nombreCortado.length - 1 ];
 
-    // Guardar archivo en el server
-    archivo.mv( uploadPath, (err) => {
-        if(err)
-            return res.status(500).json({ err });
-    });
+    // Validar la extension
+    const extensionesValidas = ['png', 'jpg', 'jpeg', 'gif'];
+    console.log(nombreCortado, 'Extension', extension);
 
-    return res.status(200).json({
-        msg: `Archivo cargado en ${uploadPath}`
-    });
+    if( !extensionesValidas.includes( extension ) ) {
+        return res.status(400).json({
+            msg: `Solo las extensiones ${extensionesValidas} son permitidas`
+        });
+    }
+
+    // Establecer la direccion del archivo
+    // const uploadPath = path.join( __dirname, '../uploads/', archivo.name );
+
+    // // Guardar archivo en el server
+    // archivo.mv( uploadPath, (err) => {
+    //     if(err)
+    //         return res.status(500).json({ err });
+    // });
+
+    // return res.status(200).json({
+    //     msg: `Archivo cargado en ${uploadPath}`
+    // });
 }
 
 module.exports = {
