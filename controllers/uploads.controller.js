@@ -3,10 +3,6 @@ const { subirArchivo } = require("../helpers");
 const { Usuario, Producto } = require('../models');
 
 const cargarArchivo = async ( req = request, res = response ) => {
-    if( !req.files || Object.keys(req.files).length === 0 || !req.files.archivo ) {
-        return res.status(400).json({msg: 'No hay archivos que subir'});
-    }
-
     try {
         // Subir otro tipo de archivos
         const nombre = await subirArchivo( req.files, undefined, 'imgs' );
