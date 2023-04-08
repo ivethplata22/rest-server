@@ -8,10 +8,11 @@ class Server {
         this.port = process.env.PORT || 3000;
 
         this.paths = {
-            auth: '/api/auth',
-            usuarios: '/api/usuarios',
+            auth:       '/api/auth',
+            buscar:     '/api/buscar',
+            usuarios:   '/api/usuarios',
             categorias: '/api/categorias',
-            productos: '/api/productos'
+            productos:  '/api/productos'
         }
 
         // Conectar a Base de Datos
@@ -42,6 +43,7 @@ class Server {
 
     routes() {
         this.app.use( this.paths.auth, require('../routes/auth.routes') );
+        this.app.use( this.paths.buscar, require('../routes/buscar.routes') );
         this.app.use( this.paths.usuarios, require('../routes/user.routes') );
         this.app.use( this.paths.categorias, require('../routes/categorias.routes') );
         this.app.use( this.paths.productos, require('../routes/productos.routes') );
