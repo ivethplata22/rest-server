@@ -1,5 +1,7 @@
 const path = require('path');
 const fs = require('fs');
+const fetch = require('node-fetch');
+const { v4: uuidv4 } = require('uuid');
 const { request, response } = require("express");
 const { subirArchivo } = require("../helpers");
 const { Usuario, Producto } = require('../models');
@@ -87,8 +89,46 @@ const mostrarImagen = async (req = request, res = response) => {
     return res.sendFile( pathImagen );
 }
 
+const DescargarImagen = (req = request, res = response) => {
+
+    const { coleccion, id } = req.params;
+    let contentType, nombreCortado, extension;
+
+    fetch(`http://localhost:8080/api/uploads/${coleccion}/${id}`)
+    .then(response => {
+        if (response.ok) {
+            // Extraemos la extension del archivo
+            contentType = response.headers.get('Content-Type');
+            nombreCortado = contentType.split('/');
+            extension = nombreCortado[ nombreCortado.length -1 ];
+            return response.buffer(); // Convertir la respuesta en un buffer
+        }
+        throw new Error('Sistem Error');
+    })
+    .then(buffer => {
+        // Escribir el buffer en un archivo local
+        const nombreTemp = uuidv4() + '.' + extension;
+        const pathImagen = path.join(__dirname, '../uploads', 'descargas', nombreTemp);
+        const dirPath = path.dirname(pathImagen);
+        if (!fs.existsSync(dirPath)) {
+            fs.mkdirSync(dirPath, { recursive: true });
+        }
+        fs.writeFile(pathImagen, buffer, err => {
+        if (err) {
+            return res.status(400).json({ msg: 'Hubo un problema al escribir archivo', err});
+        } else {
+            return res.status(200).json({ msg: 'El archivo fue guardado!', pathImagen });
+        }
+        });
+    })
+    .catch(error => {
+        return res.status(400).json({ msg: 'Sistem Error - Descargar Imagen', error});
+    });
+}
+
 module.exports = {
     cargarArchivo,
     actualizarImagen,
-    mostrarImagen
+    mostrarImagen,
+    DescargarImagen
 }
