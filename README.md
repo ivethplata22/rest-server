@@ -9,6 +9,8 @@ Implementacion de inicio de sesión por Google -v4
 
 Implementación de Categorias y Productos con peticiones CRUD -v5
 
+Implementacion de Carga de Archivos en Cloudinary y Local -v6
+
 Configurar archivo .env
 ```
 Ejemplo en example.env
